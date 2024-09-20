@@ -4,8 +4,8 @@
 This repository is currently under construction. More detailed information will follow shortly. Please expect changes to the README and file structure.
 
 # Publications using SEAMLESS
-- T. Gebauer, M. Patchou, C. Wietfeld, "SEAMLESS: Radio Metric Aware Multi-Link Transmission for Resilient Rescue Robotics", In 2023 IEEE International Conference on Safety, Security, and Rescue Robotics (SSRR), Fukushima, Japan, November 2023.
-- M. Patchou, T. Gebauer, C. Krieger, S. Böcker, C. Wietfeld, "Distributed Realtime Wireless Network Emulation for Multi-Robot and Multi-Link Setup Evaluation", In 2023 IEEE International Conference on Safety, Security, and Rescue Robotics (SSRR), Fukushima, Japan, November 2023.
+- T. Gebauer, M. Patchou, C. Wietfeld, "SEAMLESS: Radio Metric Aware Multi-Link Transmission for Resilient Rescue Robotics", In 2023 IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR), Fukushima, Japan, November 2023.
+- M. Patchou, T. Gebauer, C. Krieger, S. Böcker, C. Wietfeld, "Distributed Realtime Wireless Network Emulation for Multi-Robot and Multi-Link Setup Evaluation", In 2023 IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR), Fukushima, Japan, November 2023.
 - M. Patchou, T. Gebauer, F. Schmickmann, S. Böcker, C. Wietfeld, "Immersive Situational Awareness for Robotic Assistance of First Responders Enabled by Reliable 6G Multi-X Communications," in International Conference on 6G Networking (6GNet), Paris, France, October 2024. 
 
 If you use this code or results in your publications, please cite our work as mentioned in [Citation](#citation). Also, if you do not find your work in this list, please open a merge request. 
