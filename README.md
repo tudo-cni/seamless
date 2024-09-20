@@ -3,6 +3,9 @@
 ## Disclaimer
 This repository is currently under construction. More detailed information will follow shortly. Please expect changes to the README and file structure.
 
+## Acknowledgements
+This work has been funded by the German Federal Ministry of Education and Research (BMBF) via the project LARUS-PRO under funding reference 14N15666 and is further supported by the project DRZ (Establishment of the German Rescue Robotics Center) under funding reference 13N16476, and the 6GEM research hub under funding reference 16KISK038.
+
 ## Building 
 1. Install [Rust](https://www.rust-lang.org/tools/install).
 2. Clone the Repository:
@@ -83,5 +86,4 @@ Currently SEAMLESS supports .rpm and .deb packages. More to come.
     udp_table:add(CHANGE_ME_TO_CORRECT_PORT,multilink_proto)
     ```
 
-This work has been funded by the German Federal Ministry of Education and Research (BMBF) via the project LARUS-PRO under funding reference 14N15666 and is further supported by the project DRZ (Establishment of the German Rescue Robotics Center) under funding reference 13N16476, and the 6GEM research hub under funding reference 16KISK038.
 
