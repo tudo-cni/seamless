@@ -1,0 +1,62 @@
+[package]
+name = "seamless"
+authors = ["Tim Gebauer <tim.gebauer@tu-dortmund.de>"]
+version = "0.3.0"
+edition = "2021"
+publish = false
+description = "Yet another novel approach to multilink communication written in Rust."
+license = "unlicense"
+
+
+[features]
+deep_tracing = ["tracing"]
+tracing = ["dep:tracing", "dep:tracing-subscriber"]
+
+[dependencies]
+futures = "0.3"
+tokio = { version = "1", features = ["full", "tracing"] }
+duration-string = { version = "0.3.0", features = ["serde"] }
+openssl = { version = "0.10", features = ["vendored"] }
+tracing = { version = "0.1.40", features = [
+  "max_level_debug",
+  "release_max_level_warn",
+], optional = true }
+tokio-tun = "0.11.2"
+etherparse = "0.13"
+priority-queue = "1.3.0"
+itertools = "0.12.1"
+serde_derive = "1.0.152"
+serde = "1.0.152"
+serde_json = "1.0.95"
+lz4_flex = { version = "0.11.1" }
+chrono = "0.4.23"
+influxdb = { version = "0.5.2", features = ["derive"] }
+influxdb2 = "0.4.5"
+num-traits = "0.2"
+async-trait = "0.1.68"
+clap = { version = "4.2.7", features = ["derive"] }
+zeromq = "0.3.3"
+tracing-subscriber = { version = "0.3.18", features = [
+  "json",
+], optional = true }
+serde_with = "3.4.0"
+serde_yaml = "0.9.30"
+anyhow = "1.0.83"
+nix = {version = "0.28.0", features = ["user"]}
+modular-bitfield = "0.11.2"
+
+
+[profile.release]
+codegen-units = 1 # better optimizations
+lto = true
+# RUSTFLAGS="-C target-cpu=native"
+
+[package.metadata.deb]
+maintainer-scripts = "debian/"
+systemd-units = { unit-name = "seamless@", enable = false }
+
+[package.metadata.generate-rpm]
+assets = [
+  { source = "target/release/seamless", dest = "/usr/bin/seamless", mode = "0755" },
+  { source = "debian/service", dest = "/usr/lib/systemd/system/seamless@.service", mode = "0644" },
+]

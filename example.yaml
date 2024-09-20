@@ -1,0 +1,134 @@
+multilink:
+  hostname: Lattepanda1 # Required: Hostname displayed and advertised
+  user: !Regular # must be one of "!Regular" or "!Privileged"
+    uid: 1000 # Required: Switch to user after setup is done
+    gid: 1000 # Required: Switch to group after setup is done
+
+  # Required: configuration of tun network interface
+  tunnel:
+    name: tun0 # Required: Advertised interface name
+    local_ip: 192.168.2.1 # Required: Local tun interface IP address
+    remote_ip: 192.168.2.2 # Required: Remote address for which routing tables are created
+    netmask: 255.255.255.255 # Required: Netmask for remote devices
+    mtu: 1450 # Optional: MTU of tun interface. Option to avoid packet segmentation
+
+  # Required: Default Scheduler
+  # Options: LowestRtt, Redundant, SingleLink, RoundRobin
+  global_scheduler:
+    type: LowestRtt
+    time_to_trigger: 100ms # Optional: Time to trigger link switch, Default: 200ms
+    links:
+      - link1
+      - link2
+
+  monitoring_interval: 100ms # Optional: Time interval in which link loss and health state is calculated, Default: 200ms
+  initial_reorder_timeout: 200ms # Optional: Initial reorder timeout for incoming packets. Updated dynamically by rtt, Default: 100ms
+  reorder_buffer_size: 256 # Optional: reorder buffer size (packets) for incoming packets.  Default: 128
+  
+  # Optional: zmq interface for the measurement-based scheduling
+  external_measurement:
+    zmq_port: 2251 # Required: Zmq Port
+    measurements: # Required: List of measurements that should be subscribed to
+      nr: # Required: Name of measurement. Is matched with link external_measurement field
+        topic: nr # Required: zmq topic
+        sub_topic: SERVINGCELL # Required: zmq subtopic.
+        links:
+          - link2
+        technology: nr # Required: Technology type needed to match kpi. Possible values: nr, wifi, lte. Case-insensitive
+        fields: # Required: fields that can be matched to technologies
+          - ss-rsrp # Required: Options for nr: ss-rsrp, ss-sinr, ss-rsrq
+
+      wifi: # see above
+        topic: wifi # see above
+        sub_topic: wlo1 # see above
+        links:
+          - link1
+        technology: wifi # see above
+        fields: # see above
+          - level # see above
+          - quality # see above
+
+  # Required: List of all links that should be aggregated
+  # Needs at least one link
+  links:
+    link1: # Required: Name of link. Used for scheduling and reporting
+      local_ip: 10.0.0.1 # Required: Local IP address of link
+      local_port: 6000 # Required: Local UDP port of link
+      remote_ip: 10.0.0.2 # Required: Remote IP address of link
+      remote_port: 6001 # Required: Local UDP port of link
+      rtt_tolerance: 200ms # Optional: Tolerance in which the link is required not high latency, Default: 500ms
+      timeout_tolerance: 5s # Optional: Tolerance how long keepalives can be missed until the link is considered down, Default 1s
+      keepalive_interval: 50ms # Optional: Interval in which keepalive packet are send, Default 100ms
+      loss_tolerance: 10 # Optional: Tolerance regarding packet loss rate in percent until the link is considered high loss. Default: 1
+      technology: wifi # Optional: Technology type needed to match kpi. Possible values: nr, wifi, lte, general. Default: Generic, Case-insensitive
+      external_measurement: wifi # Optional: Name of external measurement to consider for scheduling decisions for this link.
+
+    link2: # see link1
+      local_ip: 10.1.1.1
+      local_port: 6000
+      remote_ip: 10.1.1.2
+      remote_port: 6001
+
+  # Optional: Application definitions for individual scheduling
+  applications:
+    iperf_tcp: # Required: Name of application
+      transport_protocol: tcp # Required: Transport protocol, Possible values: tcp, udp
+      dst_port: 5201 # Required: Destination port of the application. Can either be 0-65535 or "*"
+      src_port: "*" # Required: Destination port of the application. Can either be 0-65535 or "*"
+      scheduler:
+        type: LowestRtt
+        time_to_trigger: 100ms # Optional: Time to trigger link switch, Default: 200ms
+        links:
+          - link1
+          - link2
+
+      reorder: false # Optional: Should the send packets being reordered, Default: true
+
+    iperf_udp: # See iperf_tcp
+      transport_protocol: udp
+      dst_port: 5201
+      src_port: "*"
+      scheduler:
+        type: SingleLink
+        link: link1
+
+  # Optional: List of metric reportings
+  metrics:
+    # Required configuration for Influxdb1
+    influxdb1: # Required: Name of reporting
+      reporting_interval: 500ms # Optional: Interval in which metrics are reported, Default: 1s
+      report_to:
+        backend: Influxdb1 # Required: Backend for reporting. Currently Influxdb1 and Influxdb2 are supported
+        host: 127.0.0.1 # Required: Influxdb1 Hostname
+        port: 8086 # Required: Influxdb1 Org
+        db: db # Required: Influxdb1 Database
+      metrics_to_report: # Optional: Metrics to be reported. Possible metrics: Datarate, RoundTripTime, LinkState, LinkLoss, MegabytesSentTotal, MegabytesReceivedTotal. Default: nothing is reported
+        - Datarate
+        - RoundTripTime
+        - LinkState
+        - LinkLoss
+        - MegabytesSentTotal
+        - MegabytesReceivedTotal
+
+    # Required configuration for Influxdb2
+    influxdb2: # Required: Name of reporting
+      reporting_interval: 500ms # Optional: Interval in which metrics are reported, Default: 1s
+      report_to:        
+        backend: Influxdb2 # Required: Backend for reporting. Currently influxdb1 and Influxdb2 are supported
+        host: 127.0.0.1 # Required: influxdb2 Hostname
+        port: 8086 # Required: Influxdb2 Port
+        org: TUDO # Required: Influxdb2 Org
+        token: token # Required: Influxdb2 Access Token
+        bucket: multilink # Required: Influxdb2 Bucket
+      metrics_to_report: # Optional: Metrics to be reported. Possible metrics: Datarate, RoundTripTime, LinkState, LinkLoss, MegabytesSentTotal, MegabytesReceivedTotal. Default: nothing is reported
+        - Datarate
+        - RoundTripTime
+        - LinkState
+        - LinkLoss
+        - MegabytesSentTotal
+        - MegabytesReceivedTotal
+        - ChosenLinks
+
+        
+
+
