@@ -3,6 +3,13 @@
 ## Disclaimer
 This repository is currently under construction. More detailed information will follow shortly. Please expect changes to the README and file structure.
 
+# Publications using SEAMLESS
+- T. Gebauer, M. Patchou, C. Wietfeld, "SEAMLESS: Radio Metric Aware Multi-Link Transmission for Resilient Rescue Robotics", In 2023 IEEE International Conference on Safety, Security, and Rescue Robotics (SSRR), Fukushima, Japan, November 2023.
+- M. Patchou, T. Gebauer, C. Krieger, S. Böcker, C. Wietfeld, "Distributed Realtime Wireless Network Emulation for Multi-Robot and Multi-Link Setup Evaluation", In 2023 IEEE International Conference on Safety, Security, and Rescue Robotics (SSRR), Fukushima, Japan, November 2023.
+- M. Patchou, T. Gebauer, F. Schmickmann, S. Böcker, C. Wietfeld, "Immersive Situational Awareness for Robotic Assistance of First Responders Enabled by Reliable 6G Multi-X Communications," in International Conference on 6G Networking (6GNet), Paris, France, October 2024. 
+
+If you use this code or results in your publications, please cite our work as mentioned in [Citation](#citation). Also, if you do not find your work in this list, please open a merge request. 
+
 ## Acknowledgements
 This work has been funded by the German Federal Ministry of Education and Research (BMBF) via the project LARUS-PRO under funding reference 14N15666 and is further supported by the project DRZ (Establishment of the German Rescue Robotics Center) under funding reference 13N16476, and the 6GEM research hub under funding reference 16KISK038.
 
@@ -85,5 +92,17 @@ Currently SEAMLESS supports .rpm and .deb packages. More to come.
     ```lua
     udp_table:add(CHANGE_ME_TO_CORRECT_PORT,multilink_proto)
     ```
-
-
+# Citation
+If you use this code or results in your paper, please cite our work as:
+```
+@InProceedings{gebauer2023,
+	Author = {Tim Gebauer and Manuel Patchou and Christian Wietfeld},
+	Title = {{SEAMLESS: Radio Metric Aware Multi-Link Transmission for Resilient Rescue Robotics}},
+	Booktitle = {2023 IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)},
+	Address = {Fukushima, Japan},
+	Month = {nov},
+	Year = {2023},
+	Keywords = {Rescue Robotics; Multi-Link; 5G},
+	Project = {LARUS-PRO, DRZ, 6GEM},
+}
+```
