@@ -35,14 +35,14 @@ influxdb2 = "0.4.5"
 num-traits = "0.2"
 async-trait = "0.1.68"
 clap = { version = "4.2.7", features = ["derive"] }
-zeromq = "0.3.3"
+zeromq = "0.4.1"
 tracing-subscriber = { version = "0.3.18", features = [
   "json",
 ], optional = true }
 serde_with = "3.4.0"
 serde_yaml = "0.9.30"
 anyhow = "1.0.83"
-nix = {version = "0.28.0", features = ["user"]}
+nix = { version = "0.28.0", features = ["user"] }
 modular-bitfield = "0.11.2"
 
 
